@@ -42,6 +42,13 @@ decimal.addEventListener("click", (event) => {
   updateScreen(currentNumber);
 });
 
+const percentage = document.querySelector(".percentage");
+
+percentage.addEventListener("click", () => {
+  inputPercentage();
+  updateScreen(currentNumber);
+});
+
 let prevNumber = "";
 let calculationOperator = "";
 let currentNumber = "0";
@@ -59,8 +66,13 @@ const inputOperator = (operator) => {
     prevNumber = currentNumber;
   }
 
-  calculationOperator = operator;
-  currentNumber = "0";
+  if (operator === "%") {
+    currentNumber /= 100;
+    calculate();
+  } else {
+    calculationOperator = operator;
+    currentNumber = "0";
+  }
 };
 
 const calculate = () => {
@@ -91,9 +103,13 @@ const clearAll = () => {
   currentNumber = "0";
 };
 
-inputDecimal = (dot) => {
+const inputDecimal = (dot) => {
   if (currentNumber.includes(".")) {
     return;
   }
   currentNumber += dot;
+};
+
+const inputPercentage = () => {
+  currentNumber = parseFloat(currentNumber) / 100;
 };
